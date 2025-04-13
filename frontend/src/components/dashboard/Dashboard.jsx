@@ -87,20 +87,20 @@ const Dashboard = () => {
 
     url.forEach((item) => {
         const shortUrl = item.shortUrl;
-
+    
         item.viewHistory.forEach((view) => {
             const device = view.device || 'Unknown';
             const city = view.city || 'Unknown City';
             const country = view.country || 'Unknown Country';
-
+    
             const key = `${device}-${city}-${shortUrl}`;
             const existing = DeviceLocationChart.find(entry => entry.key === key);
-
+    
             if (existing) {
                 existing.clickCount += 1;
             } else {
                 DeviceLocationChart.push({
-                    name: device, // for x-axis
+                    name: device, // shown on x-axis
                     device,
                     city,
                     country,
@@ -112,6 +112,9 @@ const Dashboard = () => {
             }
         });
     });
+    
+    console.log(DeviceLocationChart);
+    
 
 
     return (
