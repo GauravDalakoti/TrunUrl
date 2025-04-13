@@ -257,7 +257,7 @@ const Dashboard = () => {
                             <div className="w-full max-w-3xl mt-12 mx-auto h-[400px] bg-white rounded-2xl shadow-md p-6 overflow-x-auto">
                                 <h2 className="text-center text-2xl font-semibold mb-6">📱 Device Click Statistics</h2>
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart data={DevicechartUrl} margin={{ top: 20, right: 30, left: 20, bottom: 40 }}>
+                                    <BarChart data={DeviceLocationChart} margin={{ top: 20, right: 30, left: 20, bottom: 40 }}>
                                         <CartesianGrid strokeDasharray="3 3" />
                                         <XAxis dataKey="name" tick={{ fontSize: 14 }} />
                                         <YAxis />
