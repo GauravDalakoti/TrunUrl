@@ -54,19 +54,34 @@ const Dashboard = () => {
         clickCount: item.viewHistory?.length,
         fill: colors[index % colors.length],
     }));
+    
 
-    const deviceData = [
-        { device: "Mobile", count: 140 },
-        { device: "Desktop", count: 90 },
-        { device: "Tablet", count: 50 },
-        { device: "Other", count: 10 },
-    ];
+    const DevicechartUrl = [];
 
-    const DevicechartUrl = url.map((item, index) => ({
-        name: item.viewHistory?.[0]?.device || "Unknown",
-        clickCount: item.viewHistory?.length || 0,
-        fill: colors[index % colors.length],
-    }));
+    url.forEach((item) => {
+        const shortUrl = item.shortUrl;
+
+        item.viewHistory.forEach((view) => {
+            const device = view.device || "Unknown";
+
+
+            const key = `${device}-${shortUrl}`;
+            const existing = DevicechartUrl.find((entry) => entry.key === key);
+
+            if (existing) {
+                existing.clickCount += 1;
+            } else {
+                DevicechartUrl.push({
+                    name: device,
+                    device,
+                    url: shortUrl,
+                    key,
+                    clickCount: 1,
+                    fill: colors[DevicechartUrl.length % colors.length],
+                });
+            }
+        });
+    });
 
 
     return (
@@ -171,7 +186,21 @@ const Dashboard = () => {
                                     <CartesianGrid strokeDasharray="3 3" />
                                     <XAxis dataKey="name" tick={{ fontSize: 14 }} />
                                     <YAxis />
-                                    <Tooltip />
+                                    <Tooltip
+                                        content={({ active, payload }) => {
+                                            if (active && payload && payload.length) {
+                                                const data = payload[0].payload;
+                                                return (
+                                                    <div className="bg-white p-3 shadow-md rounded-md text-sm text-gray-800">
+                                                        <p><strong>Device:</strong> {data.device}</p>
+                                                        <p><strong>Clicks:</strong> {data.clickCount}</p>
+                                                        <p><strong>URL:</strong> {data.url}</p>
+                                                    </div>
+                                                );
+                                            }
+                                            return null;
+                                        }}
+                                    />
                                     <Legend />
                                     <Bar dataKey="clickCount" barSize={60}>
                                         {DevicechartUrl.map((entry, index) => (
