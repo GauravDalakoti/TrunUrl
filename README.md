@@ -1,4 +1,4 @@
-# TrunUrl
+# TruncUrl
 # Micro-SaaS: Link Analytics Dashboard
 
 ## Overview
