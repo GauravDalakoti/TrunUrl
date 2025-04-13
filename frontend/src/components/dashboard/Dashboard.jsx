@@ -74,7 +74,7 @@ const Dashboard = () => {
 
             {
                 url.length == 0 ? <div className='flex items-center justify-center'>
-                    <div className='font-bold text-5xl'>No Url Found</div>
+                    <div className='font-bold text-4xl py-10'>No Urls Found</div>
                 </div> :
                     <div>
                         <div className='flex mt-6 items-center rounded-b-none justify-between w-[92vw] rounded-xl mx-auto py-10 bg-gray-800 text-white px-8'>
