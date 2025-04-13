@@ -100,7 +100,7 @@ const Dashboard = () => {
                 existing.clickCount += 1;
             } else {
                 DeviceLocationChart.push({
-                    name: device, // shown on x-axis
+                    name: `${device}`, // Label on X-axis
                     device,
                     city,
                     country,
@@ -112,6 +112,7 @@ const Dashboard = () => {
             }
         });
     });
+
 
     console.log(DeviceLocationChart);
 
@@ -265,18 +266,19 @@ const Dashboard = () => {
                                                 if (active && payload && payload.length) {
                                                     const data = payload[0].payload;
                                                     return (
-                                                        <div className="bg-white p-3 shadow-md rounded-md text-sm text-gray-800">
-                                                            <p><strong>Device:</strong> {data.device}</p>
-                                                            <p><strong>Clicks:</strong> {data.clickCount}</p>
-                                                            <p><strong>URL:</strong> {data.url}</p>
-                                                            <p><strong>City:</strong> {data.city}</p>
-                                                            <p><strong>Country:</strong> {data.country}</p>
+                                                        <div className="bg-white border px-4 py-2 rounded shadow text-sm">
+                                                            <div><strong>Device:</strong> {data.device}</div>
+                                                            <div><strong>City:</strong> {data.city}</div>
+                                                            <div><strong>Country:</strong> {data.country}</div>
+                                                            <div><strong>URL:</strong> {data.url}</div>
+                                                            <div><strong>Clicks:</strong> {data.clickCount}</div>
                                                         </div>
                                                     );
                                                 }
                                                 return null;
                                             }}
                                         />
+
 
                                         <Legend />
                                         <Bar dataKey="clickCount" barSize={60}>
