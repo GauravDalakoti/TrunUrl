@@ -22,7 +22,7 @@ This is a URL shortener application with an analytics dashboard built using **Re
 
 ## Live Demo
 
-You can try the live demo of the application here:[](https://truncurl.vercel.app) 
+You can try the live demo of the application here:[https://truncurl.vercel.app] 
 
 ## Authentication: 
   - JWT-based email/password login.
