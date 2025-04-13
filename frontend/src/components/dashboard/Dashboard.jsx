@@ -85,7 +85,7 @@ const Dashboard = () => {
 
 
     return (
-        <div className='min-h-[87vh] pb-10'>
+        <div className='min-h-[87vh] pb-10 flex items-center'>
 
 
             {
