@@ -47,15 +47,7 @@ const Dashboard = () => {
     // Assign colors dynamically
     const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7f50', '#00c49f', '#ffbb28'];
 
-    // Prepare chart data with colors
-    const chartData = url.map((item, index) => ({
-        name: item.shortUrl,
-        clickCount: item.viewHistory?.length,
-        fill: colors[index % colors.length],
-    }));
-
-
-    const DeviceLocationChart = [];
+    const DeviceLocationClickChart = [];
 
     url.forEach((item) => {
         const shortUrl = item.shortUrl;
@@ -66,12 +58,12 @@ const Dashboard = () => {
             const country = view.country || 'Unknown Country';
 
             const key = `${device}-${city}-${shortUrl}`;
-            const existing = DeviceLocationChart.find(entry => entry.key === key);
+            const existing = DeviceLocationClickChart.find(entry => entry.key === key);
 
             if (existing) {
                 existing.clickCount += 1;
             } else {
-                DeviceLocationChart.push({
+                DeviceLocationClickChart.push({
                     name: `${device}`, // Label on X-axis
                     device,
                     city,
@@ -79,7 +71,7 @@ const Dashboard = () => {
                     url: shortUrl,
                     key,
                     clickCount: 1,
-                    fill: colors[DeviceLocationChart.length % colors.length]
+                    fill: colors[DeviceLocationClickChart.length % colors.length]
                 });
             }
         });
@@ -172,29 +164,12 @@ const Dashboard = () => {
                                 </div>
                             </div>
 
-                            <div className="w-full h-[400px] bg-white rounded-2xl shadow-md p-4 mt-3 pb-6">
-                                <h2 className="text-center text-2xl font-semibold mb-4">📊 URL Click Statistics</h2>
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 40 }}>
-                                        <CartesianGrid strokeDasharray="3 3" />
-                                        <XAxis dataKey="name" angle={-25} textAnchor="end" interval={0} height={70} />
-                                        <YAxis />
-                                        <Tooltip />
-                                        <Legend />
-                                        <Bar dataKey="clickCount" barSize={40}>
-                                            {chartData.map((entry, index) => (
-                                                <Cell key={`cell-${index}`} fill={entry.fill} />
-                                            ))}
-                                        </Bar>
-                                    </BarChart>
-                                </ResponsiveContainer>
-                            </div>
 
 
                             <div className="w-full max-w-3xl mt-12 mx-auto h-[400px] bg-white rounded-2xl shadow-md p-6 overflow-x-auto">
                                 <h2 className="text-center text-2xl font-semibold mb-6">📊 Click Stats by Device and Location</h2>
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart data={DeviceLocationChart} margin={{ top: 20, right: 30, left: 20, bottom: 40 }}>
+                                    <BarChart data={DeviceLocationClickChart} margin={{ top: 20, right: 30, left: 20, bottom: 40 }}>
                                         <CartesianGrid strokeDasharray="3 3" />
                                         <XAxis dataKey="name" tick={{ fontSize: 14 }} />
                                         <YAxis />
@@ -216,10 +191,9 @@ const Dashboard = () => {
                                             }}
                                         />
 
-
                                         <Legend />
                                         <Bar dataKey="clickCount" barSize={60}>
-                                            {DeviceLocationChart.map((entry, index) => (
+                                            {DeviceLocationClickChart.map((entry, index) => (
                                                 <Cell key={`cell-${index}`} fill={entry.fill} />
                                             ))}
                                         </Bar>
