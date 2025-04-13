@@ -7,4 +7,4 @@ import menu from "./menu.png"
 import user from "./user.png"
 import downarrow from "./downarrow.jpg"
 
-export const assets = { logo,downarrow, menu,contactUs, homeImage,  loading, close,user,   }
+export const assets = { logo, downarrow, menu, contactUs, homeImage, loading, close, user, }
