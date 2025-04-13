@@ -262,12 +262,12 @@ const Dashboard = () => {
                                                 if (active && payload && payload.length) {
                                                     const data = payload[0].payload;
                                                     return (
-                                                        <div className="bg-white p-3 shadow-md rounded-md text-sm text-gray-800">
+                                                        <div className="bg-white p-4 rounded shadow text-sm">
                                                             <p><strong>Device:</strong> {data.device}</p>
-                                                            <p><strong>Clicks:</strong> {data.clickCount}</p>
-                                                            <p><strong>URL:</strong> {data.url}</p>
                                                             <p><strong>City:</strong> {data.city}</p>
                                                             <p><strong>Country:</strong> {data.country}</p>
+                                                            <p><strong>URL:</strong> {data.url}</p>
+                                                            <p><strong>Clicks:</strong> {data.clickCount}</p>
                                                         </div>
                                                     );
                                                 }
