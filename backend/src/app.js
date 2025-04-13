@@ -23,5 +23,4 @@ app.use("/api/v1/urls", urlRoutes)
 //redirect route
 app.use("/:shortId", redirectToUrl)
 
-
 export { app }

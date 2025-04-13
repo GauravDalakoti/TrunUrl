@@ -3,7 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { nanoid } from "nanoid"
-import {UAParser} from 'ua-parser-js';
+import { UAParser } from 'ua-parser-js';
 
 const BASE_URL = process.env.BASE_URL
 
@@ -58,8 +58,8 @@ const redirectToUrl = asyncHandler(async (req, res) => {
 
     const parser = new UAParser(req.headers['user-agent']);
     const ua = parser.getResult();
-  
-    const device = ua.device.type || 'desktop'; 
+
+    const device = ua.device.type || 'desktop';
 
     const entry = await URL.findOneAndUpdate(
         {
