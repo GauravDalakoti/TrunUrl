@@ -282,7 +282,7 @@ const Dashboard = () => {
 
                                         <Legend />
                                         <Bar dataKey="clickCount" barSize={60}>
-                                            {DevicechartUrl.map((entry, index) => (
+                                            {DeviceLocationChart.map((entry, index) => (
                                                 <Cell key={`cell-${index}`} fill={entry.fill} />
                                             ))}
                                         </Bar>
