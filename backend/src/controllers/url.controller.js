@@ -4,6 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { nanoid } from "nanoid"
 import { UAParser } from 'ua-parser-js';
+import axios from "axios"
 
 const BASE_URL = process.env.BASE_URL
 
@@ -61,6 +62,16 @@ const redirectToUrl = asyncHandler(async (req, res) => {
 
     const device = ua.device.type || 'desktop';
 
+    let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    ip = ip.split(",")[0]?.replace("::ffff:", "").trim();
+
+    const locationRes = await axios.get(`http://ip-api.com/json/${ip}`);
+    const { city, country } = locationRes.data;
+
+    // If city or country is undefined, fallback to "Unknown"
+    const locationCity = city || "Unknown";
+    const locationCountry = country || "Unknown";
+
     const entry = await URL.findOneAndUpdate(
         {
             shortId
@@ -72,7 +83,9 @@ const redirectToUrl = asyncHandler(async (req, res) => {
                 viewHistory: {
 
                     timestamps: Date.now(),
-                    device
+                    device,
+                    city: locationCity,
+                    country: locationCountry
                 }
             }
         }

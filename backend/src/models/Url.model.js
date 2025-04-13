@@ -35,9 +35,19 @@ const urlSchema = new Schema({
 
                 type: Number
             },
-            device:{
+            device: {
 
-                type:String
+                type: String
+            },
+
+            city: {
+
+                type: String
+            },
+
+            country: {
+                
+                type: String
             }
         }
     ]
