@@ -68,7 +68,6 @@ const Home = () => {
                     const res = await response.json()
                     setResponseURL(res.data.shortUrl)
                     setIsShortedURL(true)
-                    console.log(res);
 
                 }
 

@@ -33,7 +33,6 @@ const Dashboard = () => {
 
                     setLoading(false)
                     const res = await response.json()
-                    console.log(res);
                     setUrl(res.data)
                 }
 
@@ -55,33 +54,6 @@ const Dashboard = () => {
         fill: colors[index % colors.length],
     }));
 
-
-    const DevicechartUrl = [];
-
-    url.forEach((item) => {
-        const shortUrl = item.shortUrl;
-
-        item.viewHistory.forEach((view) => {
-            const device = view.device || "Unknown";
-
-
-            const key = `${device}-${shortUrl}`;
-            const existing = DevicechartUrl.find((entry) => entry.key === key);
-
-            if (existing) {
-                existing.clickCount += 1;
-            } else {
-                DevicechartUrl.push({
-                    name: device,
-                    device,
-                    url: shortUrl,
-                    key,
-                    clickCount: 1,
-                    fill: colors[DevicechartUrl.length % colors.length],
-                });
-            }
-        });
-    });
 
     const DeviceLocationChart = [];
 
@@ -112,9 +84,6 @@ const Dashboard = () => {
             }
         });
     });
-
-
-    console.log(DeviceLocationChart);
 
 
 
@@ -223,39 +192,7 @@ const Dashboard = () => {
 
 
                             <div className="w-full max-w-3xl mt-12 mx-auto h-[400px] bg-white rounded-2xl shadow-md p-6 overflow-x-auto">
-                                <h2 className="text-center text-2xl font-semibold mb-6">📱 Device Click Statistics</h2>
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <BarChart data={DevicechartUrl} margin={{ top: 20, right: 30, left: 20, bottom: 40 }}>
-                                        <CartesianGrid strokeDasharray="3 3" />
-                                        <XAxis dataKey="name" tick={{ fontSize: 14 }} />
-                                        <YAxis />
-                                        <Tooltip
-                                            content={({ active, payload }) => {
-                                                if (active && payload && payload.length) {
-                                                    const data = payload[0].payload;
-                                                    return (
-                                                        <div className="bg-white p-3 shadow-md rounded-md text-sm text-gray-800">
-                                                            <p><strong>Device:</strong> {data.device}</p>
-                                                            <p><strong>Clicks:</strong> {data.clickCount}</p>
-                                                            <p><strong>URL:</strong> {data.url}</p>
-                                                        </div>
-                                                    );
-                                                }
-                                                return null;
-                                            }}
-                                        />
-                                        <Legend />
-                                        <Bar dataKey="clickCount" barSize={60}>
-                                            {DevicechartUrl.map((entry, index) => (
-                                                <Cell key={`cell-${index}`} fill={entry.fill} />
-                                            ))}
-                                        </Bar>
-                                    </BarChart>
-                                </ResponsiveContainer>
-                            </div>
-
-                            <div className="w-full max-w-3xl mt-12 mx-auto h-[400px] bg-white rounded-2xl shadow-md p-6 overflow-x-auto">
-                                <h2 className="text-center text-2xl font-semibold mb-6">📱 Device Click Statistics</h2>
+                                <h2 className="text-center text-2xl font-semibold mb-6">📊 Click Stats by Device and Location</h2>
                                 <ResponsiveContainer width="100%" height="100%">
                                     <BarChart data={DeviceLocationChart} margin={{ top: 20, right: 30, left: 20, bottom: 40 }}>
                                         <CartesianGrid strokeDasharray="3 3" />
