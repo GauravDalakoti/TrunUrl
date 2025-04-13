@@ -87,15 +87,15 @@ const Dashboard = () => {
 
     url.forEach((item) => {
         const shortUrl = item.shortUrl;
-    
+
         item.viewHistory.forEach((view) => {
             const device = view.device || 'Unknown';
             const city = view.city || 'Unknown City';
             const country = view.country || 'Unknown Country';
-    
+
             const key = `${device}-${city}-${shortUrl}`;
             const existing = DeviceLocationChart.find(entry => entry.key === key);
-    
+
             if (existing) {
                 existing.clickCount += 1;
             } else {
@@ -112,9 +112,9 @@ const Dashboard = () => {
             }
         });
     });
-    
+
     console.log(DeviceLocationChart);
-    
+
 
 
     return (
@@ -265,18 +265,19 @@ const Dashboard = () => {
                                                 if (active && payload && payload.length) {
                                                     const data = payload[0].payload;
                                                     return (
-                                                        <div className="bg-white p-4 rounded shadow text-sm">
+                                                        <div className="bg-white p-3 shadow-md rounded-md text-sm text-gray-800">
                                                             <p><strong>Device:</strong> {data.device}</p>
+                                                            <p><strong>Clicks:</strong> {data.clickCount}</p>
+                                                            <p><strong>URL:</strong> {data.url}</p>
                                                             <p><strong>City:</strong> {data.city}</p>
                                                             <p><strong>Country:</strong> {data.country}</p>
-                                                            <p><strong>URL:</strong> {data.url}</p>
-                                                            <p><strong>Clicks:</strong> {data.clickCount}</p>
                                                         </div>
                                                     );
                                                 }
                                                 return null;
                                             }}
                                         />
+
                                         <Legend />
                                         <Bar dataKey="clickCount" barSize={60}>
                                             {DevicechartUrl.map((entry, index) => (
